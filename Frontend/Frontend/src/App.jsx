@@ -1,23 +1,30 @@
-import {useState,useEffect} from 'react'
+import { useEffect, useState } from 'react'
+import ProductList from './ProductList';
 
 function App() {
-  const [data,setData] = useState([]);
-  const [loading,setLoading] = useState(true);
-  
-  useEffect(()=>{ 
-    async function fetchData() {
-      let responce = await fetch('http://localhost:3000/api/data')
-      let data = await responce.json();
-      setData(data);
-      setLoading(false);
-  }
 
-  fetchData();
-},[])
+const [products,setProducts]=useState([]);
+
+
+
+useEffect(()=>{
+    async  function FetchData(){
+      console.log("aman happy birthday..🎂");
+         let responce= await fetch("https://divyansh-gupta.onrender.com/api/products");
+           let data= await responce.json();
+           console.log(data);
+           setProducts(data);  //pay attention , data formate change
+     }
+
+
+   FetchData();
+},[]);
+
   return (
     <div>
-      <h1>Welcome to the Frontend</h1>
-      <ProductList products={products}/>
+
+       <ProductList products={products}/>
+
     </div>
   )
 }
